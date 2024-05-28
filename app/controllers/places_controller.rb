@@ -19,4 +19,15 @@ class PlacesController < ApplicationController
     redirect_to "/places"
   end
 
+  def destroy
+  # find a Place
+  @place = Place.find_by({ "id" => params["id"] })
+
+  # destroy Company row
+  @place.destroy
+
+  # redirect user
+  redirect_to "/places"
+  end 
+
 end
