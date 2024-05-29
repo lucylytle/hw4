@@ -14,6 +14,15 @@ class EntriesController < ApplicationController
   end
 
   def destroy
-  end 
+    # find a Entry
+    @entry = Entry.find_by({ "id" => params["id"] })
+  
+    # destroy Entry row
+    @entry.destroy
+  
+    # redirect user
+    redirect_to "/places/#{@entry["place_id"]}"
+    end 
+
 
 end

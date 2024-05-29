@@ -8,7 +8,7 @@ class PlacesController < ApplicationController
     @place = Place.find_by({ "id" => params["id"] })
     @entries = Entry.where({ "place_id" => @place["id"] })
   end
-
+  
   def new
   end
 
@@ -23,7 +23,7 @@ class PlacesController < ApplicationController
   # find a Place
   @place = Place.find_by({ "id" => params["id"] })
 
-  # destroy Company row
+  # destroy row
   @place.destroy
 
   # redirect user

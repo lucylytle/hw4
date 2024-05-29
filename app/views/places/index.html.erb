@@ -8,38 +8,56 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .travel-image {
+            width: 100%;
+            height: auto;
+        }
+        .welcome-container {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Places</h1>
-        <div class="row">
-            <% @places.each do |place| %>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center">
-                        <div class="card-body position-relative">
-                            <!-- Close button to delete the place -->
-                            <form action="/places/<%= place['id'] %>" method="post" class="position-absolute top-0 end-0 m-2">
-                                <input type="hidden" name="_method" value="delete">
-                                <button type="submit" class="btn-close" aria-label="Close"></button>
-                            </form>
-                            <div class="mb-3">
-                                <i class="fas fa-city fa-3x"></i>
-                            </div>
-                            <h5 class="card-title"><%= place['name'] %></h5>
-                            <a href="/places/<%= place['id'] %>" class="btn btn-primary btn-sm">View Place</a>
+        <% if session["user_id"] != nil %>
+            <h1>My Places</h1>
+            <ul class="list-group">
+                <% @places.each do |place| %>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-city me-2"></i>
+                            <%= place['name'] %>
                         </div>
-                    </div>
-                </div>
-            <% end %>
-        </div>
-        <p>
-            <a href="/places/new" class="btn btn-success btn-sm">New Place</a>
-        </p>
+                        <div>
+                            <a href="/places/<%= place['id'] %>" class="btn btn-primary btn-sm me-2">View Place</a>
+                            <form action="/places/<%= place['id'] %>" method="post" class="d-inline">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+            <p class="mt-3">
+                <a href="/places/new" class="btn btn-success btn-sm">New Place</a>
+            </p>
+        <% else %>
+            <div class="welcome-container">
+                <img src="https://img.freepik.com/free-photo/arrangement-with-travel-items-shoes_23-2148909623.jpg?t=st=1717000976~exp=1717004576~hmac=4cfa6a5063f66cfee13692c43635280f316e231c7b82518fcb5c9daf13ffbe1d&w=1060" alt="Travel" class="travel-image mb-4">
+                <h1>Welcome!</h1>
+                <p>Please sign up or login to get started.</p>
+                <p>
+                    <a href="/users/new" class="btn btn-success btn-sm">Sign Up</a>
+                    <a href="/login" class="btn btn-primary btn-sm">Login</a>
+                </p>
+            </div>
+        <% end %>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
