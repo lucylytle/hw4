@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,39 +31,42 @@
         .fixed-bottom-buttons form {
             margin-bottom: 0;
         }
-             .centered-button-container {
+        .header-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: 30vh; /* Adjust the height as needed */
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .header-container h1 {
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1><%= @place["name"] %></h1>
-        <h4>My Entries:</h4>
-        <div class="accordion" id="entriesAccordion">
-            <% @entries.each_with_index do |entry, index| %>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading<%= index %>">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
-                            <%= entry["title"] %>
-                        </button>
-                    </h2>
-                    <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>">
-                        <div class="accordion-body">
-                            <p class="text-muted"><%= entry["occurred_on"] %></p>
-                            <p><%= entry["description"] %></p>
+        <div class="header-container">
+            <h1><%= @place["name"] %></h1>
+            <a href="/entries/new?place_id=<%= @place["id"] %>" class="btn btn-success btn-sm">New Entry</a>
+        </div>
+        
+        <div class="row">
+            <% @entries.each do |entry| %>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body position-relative">
+                            <!-- Close button to delete the entry -->
+                            <form action="/entries/<%= entry['id'] %>" method="post" class="position-absolute top-0 end-0 m-2">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn-close" aria-label="Close"></button>
+                            </form>
+                            <h5 class="card-title"><%= entry['title'] %></h5>
+                            <p class="text-muted"><%= entry["occurred_on"].strftime("%m-%d-%Y") %></p>
+                            <p class="card-text"><%= entry['description'] %></p>
                         </div>
                     </div>
                 </div>
             <% end %>
         </div>
-    </div>
-
-    <div class="centered-button-container">
-        <a href="/entries/new?place_id=<%= @place["id"] %>" class="btn btn-success btn-sm">New Entry</a>
     </div>
 
     <div class="fixed-bottom-buttons">
@@ -78,6 +80,6 @@
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
