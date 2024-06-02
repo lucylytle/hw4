@@ -1,22 +1,57 @@
-<h1>New Entry</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Entry</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>New Entry</h1>
+        <form action="/entries" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="place_id" value="<%= params['place_id'] %>">
 
-<form action="/entries" method="post">
-  <input type="hidden" name="place_id" value="<%= params["place_id"] %>">
+            <div class="form-group row">
+                <label for="title_input" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" id="title_input">
+                </div>
+            </div>
 
-  <p>
-    <label for="title_input">Title</label>
-    <input type="text" name="title" id="title_input">
-  </p>
+            <div class="form-group row">
+                <label for="description_input" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="description" id="description_input">
+                </div>
+            </div>
 
-  <p>
-    <label for="description_input">Description</label>
-    <input type="text" name="description" id="description_input">
-  </p>
+            <div class="form-group row">
+                <label for="occurred_on_input" class="col-sm-2 col-form-label">Occurred On</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" name="occurred_on" id="occurred_on_input">
+                </div>
+            </div>
 
-  <p>
-    <label for="occurred_on_input">Occurred On</label>
-    <input type="date" name="occurred_on" id="occurred_on_input">
-  </p>
+            <div class="form-group row">
+                <label for="uploaded_image_input" class="col-sm-2 col-form-label">Upload Image</label>
+                <div class="col-sm-10">
+                     <input type="file" name="uploaded_image" id="uploaded_image_input" class="form-control">
+                </div>
+            </div>
 
-  <button class="btn btn-primary btn-sm">Save</button>
-</form>
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -62,9 +62,14 @@
                                 <input type="hidden" name="_method" value="delete">
                                 <button type="submit" class="btn-close" aria-label="Close"></button>
                             </form>
-                            <i class="fas fa-file-alt journal-icon"></i> <!-- Paper with writing icon -->
                             <h5 class="card-title"><%= entry['title'] %></h5>
                             <p class="text-muted"><%= entry["occurred_on"].strftime("%m-%d-%Y") %></p>
+                            <% if entry.uploaded_image.attached? %>
+                            <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
+                            <% else %>
+                            <img src="<%= entry["image"] %>" class="img-fluid">
+                            <% end %>
+                            <p>
                             <p class="card-text"><%= entry['description'] %></p>
                         </div>
                     </div>
